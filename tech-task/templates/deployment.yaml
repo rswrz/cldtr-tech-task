@@ -5,9 +5,7 @@ metadata:
   labels:
     {{- include "tech-task.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "tech-task.selectorLabels" . | nindent 6 }}
