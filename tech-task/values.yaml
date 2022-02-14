@@ -39,6 +39,8 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 80
+  # Specifies whether the service should be kept during `helm uninstall`
+  preserve: true
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

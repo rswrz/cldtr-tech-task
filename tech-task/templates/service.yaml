@@ -4,6 +4,10 @@ metadata:
   name: {{ include "tech-task.fullname" . }}
   labels:
     {{- include "tech-task.labels" . | nindent 4 }}
+  annotations:
+    {{- if .Values.service.preserve }}
+    helm.sh/resource-policy: "keep"
+    {{- end }}
 spec:
   type: {{ .Values.service.type }}
   ports:
