@@ -1,6 +1,6 @@
 apiVersion: v2
 name: tech-task
-description: A Helm chart for Kubernetes
+description: A Helm chart for Kubernetes with external dependencies
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -22,3 +22,10 @@ version: 0.1.0
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 appVersion: "2.0"
+
+# This is a list of external dependencies. Run `helm dependency build` inside the chart
+# subdirectory `tech-task` before installing or upgrading this chart.
+dependencies:
+  - name: mysql
+    version: "8.8.23"
+    repository: https://charts.bitnami.com/bitnami

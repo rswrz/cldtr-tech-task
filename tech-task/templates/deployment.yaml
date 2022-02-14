@@ -31,14 +31,26 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          # Transform key value mapping to env list with `name` and `value` keys
-          {{- with .Values.containerEnv }}
           env:
-            {{- range $k, $v := . }}
+            # Transform key value mapping from helm values to env list with name and value keys
+            {{- range $k, $v := .Values.containerEnv }}
             - name: {{ $k }}
               value: {{ $v }}
             {{- end }}
-          {{- end }}
+            # Add envs containing mysql database connection information from subchart
+            {{- with .Subcharts.mysql }}
+            - name: MYSQL_HOST
+              value: {{ include "mysql.primary.fullname" . }}
+            - name: MYSQL_DATABASE
+              value: {{ .Values.auth.database }}
+            - name: MYSQL_USERNAME
+              value: {{ .Values.auth.username }}
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "mysql.secretName" . }}
+                  key: mysql-password
+            {{- end }}
           ports:
             - name: http
               containerPort: 8080
