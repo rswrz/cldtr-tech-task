@@ -23,8 +23,8 @@ version: 0.1.0
 # It is recommended to use it with quotes.
 appVersion: "2.0"
 
-# This is a list of external dependencies. Run `helm dependency build` inside the chart
-# subdirectory `tech-task` before installing or upgrading this chart.
+# This is a list of external dependencies.
+# Run `helm dependency build` before installing or upgrading this chart.
 dependencies:
   - name: mysql
     version: "8.8.23"
