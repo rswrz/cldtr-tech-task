@@ -18,6 +18,18 @@ containerEnv:
   # A key-value map of environment variables passed to the container
   _EXAMPLE_ENV_: Just a dummy for demonstration
 
+persistence:
+  # Enable persistence using Persistent Volume Claims
+  enabled: true
+  # Persistent Volume storage class
+  # If undefined (the default) or set to null, no storageClassName spec is set, choosing the default provisioner
+  storageClass: ""
+  # Persistent Volume access modes
+  accessModes:
+    - ReadWriteOnce
+  # Persistent volume size
+  size: 10Gi
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
